@@ -1,4 +1,6 @@
-﻿namespace MobileApp.Maui;
+﻿using Newtonsoft.Json;
+
+namespace MobileApp.Maui;
 
 public partial class MainPage : ContentPage
 {
@@ -31,6 +33,8 @@ public partial class MainPage : ContentPage
 		try
 		{
             var response = client.GetStringAsync("/weatherforecast");
+			var forecastList = JsonConvert.DeserializeObject<List<WeatherForecast>>(response.Result);
+			
 			ResponseButton.Text = response.Result;
         }
 		catch (Exception exception)
