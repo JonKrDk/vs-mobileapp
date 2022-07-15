@@ -21,6 +21,22 @@ public partial class MainPage : ContentPage
 		SemanticScreenReader.Announce(CounterBtn.Text);
 
 		ResponseButton.Text = "Connecting";
-	}
+
+		string baseAddress = "http://192.168.139.10:5108";
+		HttpClient client = new HttpClient()
+		{
+			BaseAddress = new Uri(baseAddress)
+		};
+
+		try
+		{
+            var response = client.GetStringAsync("/weatherforecast");
+			ResponseButton.Text = response.Result;
+        }
+		catch (Exception exception)
+		{
+			ResponseButton.Text = exception.Message;
+		}
+    }
 }
 
